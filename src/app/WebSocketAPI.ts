@@ -1,8 +1,9 @@
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
+import {environment} from '../environments/environment';
 
 export class WebSocketAPI {
-  webSocketEndPoint: string = 'http://localhost:6565/ws';
+  webSocketEndPoint: string = `http://${environment.host}:6565/ws`;
   topic: string = '/topic/greetings/1';
   stompClient: any;
 
