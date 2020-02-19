@@ -1,2 +1,17 @@
-<app-chart></app-chart>
-<router-outlet></router-outlet>
+<nb-layout>
+
+  <nb-layout-header fixed>
+    <div id="head_wrapper">
+      <button id="head_button" nbButton status="primary" size="medium" routerLink="/home">Home
+        <nb-icon icon="home-outline"></nb-icon>
+      </button>
+      <h4 id="head_text">Flippermods</h4>
+
+    </div>
+  </nb-layout-header>
+
+  <nb-layout-column id="col_wrapper">
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+
+</nb-layout>

@@ -4,6 +4,8 @@ import * as Stomp from 'stompjs';
 import {Chart} from 'chart.js';
 import {Message} from 'stompjs';
 import {DataPackage} from '../Model/DataPackage';
+import {ActivatedRoute} from '@angular/router';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-chart',
@@ -12,8 +14,8 @@ import {DataPackage} from '../Model/DataPackage';
 })
 export class ChartComponent implements OnInit {
 
-  webSocketEndPoint: string = 'http://localhost:6565/ws';
-  topic: string = '/topic/data/1';
+  webSocketEndPoint: string = environment.webSocketEndPoint;
+  topic: string = '/topic/data/';
   stompClient: Stomp.Client;
 
   data: string[] = [];
@@ -24,7 +26,7 @@ export class ChartComponent implements OnInit {
 
   chart: Chart;
 
-  constructor() {
+  constructor(private route: ActivatedRoute) {
   }
 
   onData(msg: Stomp.Message) {
@@ -32,12 +34,12 @@ export class ChartComponent implements OnInit {
     console.log(pack);
 
     this.chart.data.datasets.forEach((dataset) => {
-      console.log(dataset.data.length);
+
       if (dataset.data.length >= 21) {
         dataset.data.shift();
       }
       dataset.data.push(pack.number);
-      console.log(dataset.data);
+
     });
 
     this.chart.update();
@@ -46,11 +48,14 @@ export class ChartComponent implements OnInit {
 
   ngOnInit() {
     console.log('Initialize WebSocket Connection');
+
+    const id = +this.route.snapshot.paramMap.get('id');
+
     let ws = new SockJS(this.webSocketEndPoint);
     this.stompClient = Stomp.over(ws);
 
     this.stompClient.connect({},
-      (frame) => this.stompClient.subscribe(this.topic, (msg: Stomp.Message) => this.onData(msg)),
+      (frame) => this.stompClient.subscribe(this.topic + id, (msg: Stomp.Message) => this.onData(msg)),
       (error) => console.error(error));
 
     this.chart = new Chart('canvas', {
@@ -72,21 +77,17 @@ export class ChartComponent implements OnInit {
         lineTension: 0,
       },
       data: {
-        labels: ['-10', '-9,5', '-9', '-8,5', '-8', '-7,5', '-7', '-6,5', '-6', '-5,5', '-5', '-4,5', '-4', '-3,5', '-3', '-2,5', '-2', '-1,5', '-1', '-0,5', '0'],
+        labels: ['-10', '-9,5', '-9', '-8,5', '-8', '-7,5', '-7', '-6,5', '-6', '-5,5', '-5',
+          '-4,5', '-4', '-3,5', '-3', '-2,5', '-2', '-1,5', '-1', '-0,5', '0'],
         datasets: [
           {
             type: 'line',
-            backgroundColor: '#cc4810',
-            fill: true
+            backgroundColor: '#cc4811',
+            fill: true,
+            label: 'Tilt-Sensor'
           }
         ]
       }
     });
-  }
-
-
-  sendMessage(id: number) {
-    console.log('calling logout api via web socket');
-    this.stompClient.send('/app/hello/' + id, {}, JSON.stringify(this.json));
   }
 }

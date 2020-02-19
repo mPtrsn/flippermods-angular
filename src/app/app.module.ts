@@ -5,18 +5,29 @@ import {AppRoutingModule} from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FormsModule} from '@angular/forms';
 import {ChartComponent} from './chart/chart.component';
-import {NbButtonModule} from '@nebular/theme';
+import {NbButtonModule, NbCardModule, NbIconModule, NbInputModule, NbLayoutModule, NbThemeModule} from '@nebular/theme';
+import {StartMenuComponent} from './start-menu/start-menu.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NbEvaIconsModule} from '@nebular/eva-icons';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChartComponent
+    ChartComponent,
+    StartMenuComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NbButtonModule
+    NbButtonModule,
+    NbLayoutModule,
+    NbCardModule,
+    NbInputModule,
+    BrowserAnimationsModule,
+    NbThemeModule.forRoot({name: 'dark'}),
+    NbEvaIconsModule,
+    NbIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

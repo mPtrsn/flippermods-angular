@@ -1,0 +1,23 @@
+
+.nb-layout-header {
+  height: 10vh;
+}
+
+#head_wrapper {
+  width: 100%;
+  display: flex;
+}
+
+#head_text {
+  width: 50%;
+}
+
+#head_button {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#col_wrapper {
+  height: 50vh;
+
+}
