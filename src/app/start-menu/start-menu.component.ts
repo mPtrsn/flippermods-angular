@@ -1,4 +1,9 @@
 import {Component, OnInit} from '@angular/core';
+import {Md5} from 'ts-md5';
+import {ApiService} from '../api.service';
+import {Profile, ProfileInfo} from '../Model/Profile';
+import {isNullOrUndefined} from 'util';
+import {Navigation, Router} from '@angular/router';
 
 @Component({
   selector: 'app-start-menu',
@@ -6,16 +11,33 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./start-menu.component.css']
 })
 export class StartMenuComponent implements OnInit {
-  values = '';
+  username = '';
+  password = '';
 
-  constructor() {
+  constructor(private api: ApiService,
+              private router: Router) {
   }
 
   ngOnInit() {
   }
 
-  onKey(event: any) {
-    this.values += event.target.value;
+  onKeyUsername(event: any) {
+    this.username += event.target.value;
+  }
+  onKeyPassword(event: any) {
+    this.password += event.target.value;
+  }
+
+  onSubmit() {
+    const info: ProfileInfo = {
+      username: this.username,
+      passwordMD5: this.password
+    };
+    this.api.loginProfile(info).subscribe((value: Profile) => {
+      if (value) {
+        this.router.navigate([`/chart/${value.id}`]);
+      }
+    });
   }
 
 }
