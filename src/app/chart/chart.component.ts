@@ -15,7 +15,7 @@ import {environment} from '../../environments/environment';
 export class ChartComponent implements OnInit {
 
   webSocketEndPoint: string = environment.webSocketEndPoint;
-  topic: string = '/topic/data/';
+  topic: string = '/secured/data/';
   stompClient: Stomp.Client;
 
   data: string[] = [];
