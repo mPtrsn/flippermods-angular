@@ -4,6 +4,7 @@ import {ApiService} from '../api.service';
 import {Profile, ProfileInfo} from '../Model/Profile';
 import {isNullOrUndefined} from 'util';
 import {Navigation, Router} from '@angular/router';
+import {AuthenticationService} from '../authentication.service';
 
 @Component({
   selector: 'app-start-menu',
@@ -14,7 +15,7 @@ export class StartMenuComponent implements OnInit {
   username = '';
   password = '';
 
-  constructor(private api: ApiService,
+  constructor(private authService: AuthenticationService,
               private router: Router) {
   }
 
@@ -33,7 +34,7 @@ export class StartMenuComponent implements OnInit {
       username: this.username,
       passwordMD5: this.password
     };
-    this.api.loginProfile(info).subscribe((value: Profile) => {
+    this.authService.login(info).subscribe((value: Profile) => {
       if (value) {
         this.router.navigate([`/chart/${value.id}`]);
       }

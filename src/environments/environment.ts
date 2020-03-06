@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  host: 'localhost',
+  host: 'http://localhost:6565',
   webSocketEndPoint: 'http://localhost:6565/ws'
 };
 

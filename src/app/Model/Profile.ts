@@ -4,6 +4,7 @@ export interface Profile {
   passwordMD5: string;
   email: string;
   tiltValue: number;
+  authData?: string;
 }
 
 

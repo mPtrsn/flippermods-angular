@@ -9,6 +9,9 @@ import {NbButtonModule, NbCardModule, NbIconModule, NbInputModule, NbLayoutModul
 import {StartMenuComponent} from './start-menu/start-menu.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NbEvaIconsModule} from '@nebular/eva-icons';
+import {HttpClientModule} from '@angular/common/http';
+import {ApiService} from './api.service';
+import {SocketService} from './socket.service';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,7 @@ import {NbEvaIconsModule} from '@nebular/eva-icons';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     NbButtonModule,
     NbLayoutModule,
     NbCardModule,
