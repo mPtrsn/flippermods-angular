@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Md5} from 'ts-md5';
-import {ApiService} from '../api.service';
 import {Profile, ProfileInfo} from '../Model/Profile';
-import {isNullOrUndefined} from 'util';
-import {Navigation, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {AuthenticationService} from '../authentication.service';
 
 @Component({
@@ -16,17 +13,18 @@ export class StartMenuComponent implements OnInit {
   password = '';
 
   constructor(private authService: AuthenticationService,
-              private router: Router) {
+              public router: Router) {
   }
 
   ngOnInit() {
   }
 
   onKeyUsername(event: any) {
-    this.username += event.target.value;
+    this.username = event.target.value;
   }
+
   onKeyPassword(event: any) {
-    this.password += event.target.value;
+    this.password = event.target.value;
   }
 
   onSubmit() {
@@ -36,7 +34,7 @@ export class StartMenuComponent implements OnInit {
     };
     this.authService.login(info).subscribe((value: Profile) => {
       if (value) {
-        this.router.navigate([`/chart/${value.id}`]);
+        this.router.navigate(['/chart', value.id]);
       }
     });
   }

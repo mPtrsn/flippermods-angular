@@ -6,6 +6,7 @@ import {Message} from 'stompjs';
 import {DataPackage} from '../Model/DataPackage';
 import {ActivatedRoute} from '@angular/router';
 import {environment} from '../../environments/environment';
+import {AuthenticationService} from '../authentication.service';
 
 @Component({
   selector: 'app-chart',
@@ -26,7 +27,8 @@ export class ChartComponent implements OnInit {
 
   chart: Chart;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute,
+              private authService: AuthenticationService) {
   }
 
   onData(msg: Stomp.Message) {
@@ -46,17 +48,24 @@ export class ChartComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  private connect() {
     console.log('Initialize WebSocket Connection');
-
     const id = +this.route.snapshot.paramMap.get('id');
 
-    let ws = new SockJS(this.webSocketEndPoint);
+    const ws = new SockJS(this.webSocketEndPoint);
+    console.log('ws fertig');
     this.stompClient = Stomp.over(ws);
 
-    this.stompClient.connect({},
+    this.stompClient.connect({login: this.authService.currentUserValue.username, passcode: this.authService.currentUserValue.passwordMD5},
       (frame) => this.stompClient.subscribe(this.topic + id, (msg: Stomp.Message) => this.onData(msg)),
-      (error) => console.error(error));
+      (error) => {
+        console.error(error);
+        this.connect();
+      });
+  }
+
+  ngOnInit() {
+    this.connect();
 
     this.chart = new Chart('canvas', {
       type: 'line',

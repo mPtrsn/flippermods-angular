@@ -13,6 +13,7 @@
                  (keyup)="onKeyPassword($event)">
         </label>
         <br>
+        <a [routerLink]="['/chart/', 1]"></a>
         <button class="form_element" id="submit_button" nbButton status="primary" size="giant"
                 (click)="onSubmit()">Submit
         </button>
