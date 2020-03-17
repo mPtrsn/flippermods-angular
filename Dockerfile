@@ -2,7 +2,7 @@ FROM nginx:alpine
 
 RUN apk update
 RUN apk add curl
-RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+RUN curl -sL https://deb.nodesource.com/setup_12.x | -E bash -
 RUN apk add  nodejs
 RUN node -v
 RUN npm -v
