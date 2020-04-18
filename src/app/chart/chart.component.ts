@@ -31,6 +31,10 @@ export class ChartComponent implements OnInit {
               private authService: AuthenticationService) {
   }
 
+  sendData() {
+    this.stompClient.send('/app/data', {}, 'gesendet von frontend');
+  }
+
   onData(msg: Stomp.Message) {
     const pack: DataPackage = JSON.parse(msg.body);
     console.log(pack);
@@ -70,6 +74,13 @@ export class ChartComponent implements OnInit {
     this.chart = new Chart('canvas', {
       type: 'line',
       options: {
+        animation: {
+          duration: 0
+        },
+        hover: {
+          animationDuration: 0 // duration of animations when hovering an item
+        },
+        responsiveAnimationDuration: 0,
         scales: {
           yAxes: [{
             ticks: {
