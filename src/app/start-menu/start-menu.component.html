@@ -1,23 +1,60 @@
 <div class="pageCenter">
-  <nb-card size="medium">
-    <nb-card-header>Tilt Sensor</nb-card-header>
-    <nb-card-body>
-      <div id="card_body">
-        <label class="form_element">
-          <input   type="text" nbInput placeholder="Username" fullWidth fieldSize="giant"
-                 (keyup)="onKeyUsername($event)">
-        </label>
-        <br>
-        <label class="form_element">
-          <input type="password" nbInput placeholder="Password" fullWidth fieldSize="giant"
-                 (keyup)="onKeyPassword($event)">
-        </label>
-        <br>
-        <a [routerLink]="['/chart/', 1]"></a>
-        <button class="form_element" id="submit_button" nbButton status="primary" size="giant"
-                (click)="onSubmit()">Submit
-        </button>
-      </div>
-    </nb-card-body>
-  </nb-card>
+  <nb-flip-card [flipped]="flipped" [showToggleButton]="false">
+    <nb-card-front>
+      <nb-card size="giant">
+        <nb-card-header><h2>Login</h2></nb-card-header>
+        <nb-card-body>
+          <div class="card_body">
+            <label class="form_element">
+              <input type="text" nbInput placeholder="Username" fullWidth fieldSize="giant"
+                     (keyup)="onKeyUsername($event)">
+            </label>
+            <br>
+            <label class="form_element">
+              <input type="password" nbInput placeholder="Password" fullWidth fieldSize="giant"
+                     (keyup)="onKeyPassword($event)">
+            </label>
+            <br>
+            <a [routerLink]="['/chart/', 1]"></a>
+            <button class="form_element" id="submit_button" nbButton status="primary" size="giant"
+                    (click)="onSubmit()" (keyup)="onEnter($event)">Login
+            </button>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <button class="form_element" nbButton status="primary" size="giant"
+                  (click)="flipCard()">Create an Account
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </nb-card-front>
+
+    <nb-card-back>
+      <nb-card size="giant">
+        <nb-card-header><h2>Registration</h2></nb-card-header>
+        <nb-card-body>
+          <div class="card_body">
+            <label class="form_element">
+              <input type="text" nbInput placeholder="Username" fullWidth fieldSize="giant"
+                     (keyup)="onKeyUsername($event)">
+            </label>
+            <br>
+            <label class="form_element">
+              <input type="text" nbInput placeholder="Password" fullWidth fieldSize="giant"
+                     (keyup)="onKeyPassword($event)">
+            </label>
+            <br>
+            <button class="form_element" id="submit_button2" nbButton status="primary" size="giant"
+                    (click)="onSubmit()">Register
+            </button>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <button class="form_element" nbButton status="primary" size="giant"
+                  (click)="flipCard()">Back to Login
+          </button>
+        </nb-card-footer>
+      </nb-card>
+    </nb-card-back>
+  </nb-flip-card>
 </div>

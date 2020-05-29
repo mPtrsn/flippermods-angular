@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 import {Chart} from 'chart.js';
-import {Message} from 'stompjs';
 import {DataPackage} from '../Model/DataPackage';
 import {ActivatedRoute} from '@angular/router';
 import {environment} from '../../environments/environment';
@@ -16,23 +15,15 @@ import {AuthenticationService} from '../authentication.service';
 export class ChartComponent implements OnInit {
 
   webSocketEndPoint: string = environment.webSocketEndPoint;
-  topic: string = '/secured/data/';
+  topic = '/secured/data/';
   stompClient: Stomp.Client;
 
   data: string[] = [];
-
-  json = {
-    name: 'Moin Moin'
-  };
 
   chart: Chart;
 
   constructor(private route: ActivatedRoute,
               private authService: AuthenticationService) {
-  }
-
-  sendData() {
-    this.stompClient.send('/app/data', {}, 'gesendet von frontend');
   }
 
   onData(msg: Stomp.Message) {
@@ -57,7 +48,6 @@ export class ChartComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
 
     const ws = new SockJS(this.webSocketEndPoint);
-    console.log('ws fertig');
     this.stompClient = Stomp.over(ws);
 
     this.stompClient.connect({login: this.authService.currentUserValue.username, passcode: this.authService.currentUserValue.passwordMD5},

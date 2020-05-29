@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {WebSocketAPI} from './WebSocketAPI';
 
 @Component({
   selector: 'app-root',
