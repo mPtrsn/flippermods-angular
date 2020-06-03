@@ -117,5 +117,8 @@
       }
     }
   },
-  "defaultProject": "flippermods"
+  "defaultProject": "flippermods",
+  "cli": {
+    "analytics": false
+  }
 }

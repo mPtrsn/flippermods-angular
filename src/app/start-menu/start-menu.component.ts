@@ -37,6 +37,10 @@ export class StartMenuComponent implements OnInit {
       username: this.username,
       passwordMD5: this.password
     };
+
+    const md5: Md5 = new Md5();
+    info.passwordMD5 = md5.appendStr(info.passwordMD5).end().toString();
+
     this.authService.login(info).subscribe((value: Profile) => {
       if (value) {
         this.router.navigate(['/chart', value.id]);

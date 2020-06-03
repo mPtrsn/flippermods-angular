@@ -19,3 +19,7 @@
   margin: 10px auto;
   align-content: center;
 }
+
+#reg-card {
+  height: unset !important;
+}
